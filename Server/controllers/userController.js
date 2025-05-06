@@ -5,7 +5,6 @@ export const createUser = async(req, res) => {
     const { username, email, phone } = req.body;
     
     if (!username || !email || !phone) {
-    if (!username || !email || !phone) {
         return res.status(400).json({ error: 'All fields are required' });
     }
 
@@ -32,26 +31,25 @@ export const createUser = async(req, res) => {
     }
 };
 
-export const getUsers = (req, res) => {
-    User.getAll((err, results) => {
-        if (err) {
-            console.error('Error fetching users:', err);
-            return res.status(500).json({ error: 'Failed to fetch users' });
-        }
-        res.status(200).json(results);
-    });
-};
+// export const getUsers = (req, res) => {
+//     User.getAll((err, results) => {
+//         if (err) {
+//             console.error('Error fetching users:', err);
+//             return res.status(500).json({ error: 'Failed to fetch users' });
+//         }
+//         res.status(200).json(results);
+//     });
+// };
 
-export const getUserById = (req, res) => {
-    const id = req.params.id;
-    User.getById(id, (err, result) => {
-        if (err) {
-            console.error('Error fetching user:', err);
-            return res.status(500).json({ error: 'Failed to fetch user' });
-        }
-        if (!result) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-        res.status(200).json(result);
-    });
-};
+// export const getUserById = (req, res) => {
+//     const id = req.params.id;
+//     User.getById(id, (err, result) => {
+//         if (err) {
+//             console.error('Error fetching user:', err);
+//             return res.status(500).json({ error: 'Failed to fetch user' });
+//         }
+//         if (!result) {
+//             return res.status(404).json({ error: 'User not found' });
+//         }
+//         res.status(200).json(result);
+//     });

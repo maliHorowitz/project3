@@ -24,7 +24,7 @@ import { con } from '../../DB/connection_DB.js';
 export const User = {
     create: async (userData) => {
         const sql = `
-            INSERT INTO users (userusername, email, phone)
+            INSERT INTO users (username, email, phone)
             VALUES (?, ?, ?)
         `;
         const [result] =  await con.promise().execute(sql, [userData.username, userData.email, userData.phone]);
