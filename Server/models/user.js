@@ -1,5 +1,5 @@
 // models/user.js
-import { con } from '../DB/connection_DB.js';
+import { con } from '../../DB/connection_DB.js';
 
 export const User = {
     create: (userData, callback) => {
