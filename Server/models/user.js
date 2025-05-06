@@ -27,7 +27,7 @@ export const User = {
             INSERT INTO users (username, email, phone)
             VALUES (?, ?, ?)
         `;
-        const [result] =  await con.execute(sql, [userData.username, userData.email, userData.phone]);
+        const [result] =  await con.promise().execute(sql, [userData.username, userData.email, userData.phone]);
         
         return result;
     },
