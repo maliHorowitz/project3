@@ -1,2 +1,2 @@
-# prokect_with_malka_and_bracha
+# project_with_malka_and_bracha
 
