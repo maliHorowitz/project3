@@ -2,13 +2,13 @@
 import { User } from '../models/user.js';
 
 export const createUser = (req, res) => {
-    const { name, email, phone } = req.body;
+    const { username, email, phone } = req.body;
     
-    if (!name || !email || !phone) {
+    if (!username || !email || !phone) {
         return res.status(400).json({ error: 'All fields are required' });
     }
 
-    User.create({ name, email, phone }, (err, result) => {
+    User.create({ username, email, phone }, (err, result) => {
         if (err) {
             console.error('Error inserting user:', err);
             return res.status(500).json({ error: 'Failed to register user' });
