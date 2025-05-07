@@ -9,3 +9,10 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) NOT NULL UNIQUE,
     phone VARCHAR(255) NOT NULL
 );
+
+
+CREATE TABLE passwords (
+  id INT,
+  password VARCHAR(255),
+  FOREIGN KEY (id) REFERENCES users(id)
+);
