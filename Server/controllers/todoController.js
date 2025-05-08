@@ -3,7 +3,7 @@ import { Todo } from '../models/todo.js';
 // Get all todos for the active user
 export const getTodos = async (req, res) => {
     try {
-        console.log('req', req);
+        console.log('header', req.headers);
 
         const userId = req.headers.userid; // Assuming `req.user` contains the active user's info
         console.log('userid', userId);

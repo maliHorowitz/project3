@@ -3,8 +3,10 @@ import { con } from '../../DB/connection_DB.js';
 export const Todo = {
     // Get all todos for a specific user
     getByUserId: async (userId) => {
+        console.log(userId);
         const sql = 'SELECT * FROM todos WHERE user_id = ? ORDER BY id';
         const [rows] = await con.promise().execute(sql, [userId]);
+        console.log(rows);
         return rows;
     },
 

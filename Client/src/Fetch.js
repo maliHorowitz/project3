@@ -4,11 +4,11 @@ class Fetch {
   constructor() {
     this.baseURL = 'http://localhost:3000/api/';
   }
-  async get(myUrl) {
+  async get(myUrl, options = {}) {
     try {
       console.log(myUrl);
       let url = this.baseURL + myUrl;
-      return fetch(url)
+      return fetch(url, options)
         .then((res) => {
           if (res.status === 200) {
             return res.json();

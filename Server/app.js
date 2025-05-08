@@ -51,7 +51,8 @@
 import pkg from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
-import cors from 'cors';import todoRoutes from './routes/todoRoutes.js';
+import cors from 'cors';
+import todoRoutes from './routes/todoRoutes.js';
 dotenv.config({ path: '../.env' });
 dotenv.config();
 

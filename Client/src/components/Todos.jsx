@@ -33,8 +33,13 @@ const Todos = () => {
     useEffect(() => {
         const fetchTodos = async () => {
             try {
-                let myUrl = `todos?userId=${currentUser.current.id}`;
-                let response = await ApiRequest.get(myUrl);
+                let myUrl = `todos`;
+                console.log("im here", currentUser.current.id);
+                let response = await ApiRequest.get(myUrl, {
+                    headers: {
+                      'userId': currentUser.current.id
+                    }
+                  });
                 let objComplete = {};
                 let objSaveButtons = {};
 
@@ -71,7 +76,7 @@ const Todos = () => {
         }));
         let taskId = todo.id;
         let completed = checkboxes[todo.id];
-        let taskDet = { title: inputVal, completed: completed };
+        let taskDet = {id: taskId,title: inputVal,completed: completed ,userId: currentUser.current.id};
         let myUrl = `todos/${todo.id}`
         try {
             let response = await ApiRequest.put(myUrl, taskDet);
