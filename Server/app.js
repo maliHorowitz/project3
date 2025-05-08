@@ -51,7 +51,7 @@
 import pkg from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
-import cors from 'cors';
+import cors from 'cors';import todoRoutes from './routes/todoRoutes.js';
 dotenv.config({ path: '../.env' });
 dotenv.config();
 
@@ -62,6 +62,8 @@ app.use(cors());
 
 // Use the user routes
 app.use('/api/users', userRoutes);
+// Use the todo routes
+app.use('/api/todos', todoRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

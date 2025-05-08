@@ -16,3 +16,11 @@ CREATE TABLE passwords (
   password VARCHAR(255),
   FOREIGN KEY (id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS todos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    completed BOOLEAN NOT NULL DEFAULT FALSE,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

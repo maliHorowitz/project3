@@ -1,25 +1,3 @@
-// // models/user.js
-// import { con } from '../../DB/connection_DB.js';
-
-// export const User = {
-//     create: (userData, callback) => {
-//         const sql = `
-//             INSERT INTO users (name, email, phone)
-//             VALUES (?, ?, ?)
-//         `;
-//         con.query(sql, [userData.name, userData.email, userData.phone], callback);
-//     },
-
-//     getAll: (callback) => {
-//         const sql = 'SELECT * FROM users';
-//         con.query(sql, callback);
-//     },
-
-//     getById: (id, callback) => {
-//         const sql = 'SELECT * FROM users WHERE id = ?';
-//         con.query(sql, [id], callback);
-//     }
-// };
 import { con } from '../../DB/connection_DB.js';
 // export const User = {
 //     create: async (userData) => {
@@ -72,15 +50,6 @@ export const User = {
         }
     },
 
-
-
-
-    // getByUsername: async (username) => {
-    //     console.log('username', username);
-    //     const sql = 'SELECT * FROM users WHERE username = ?';
-    //     const [rows] = await con.promise().execute(sql, [username]);
-    //     return rows;
-    // }
     getByUsername: async (username) => {
         console.log('username', username);
         const sql = 'SELECT u.username, p.password FROM users u JOIN passwords p ON u.id = p.id WHERE u.username = ?;';
