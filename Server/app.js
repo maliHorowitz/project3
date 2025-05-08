@@ -51,13 +51,14 @@
 import pkg from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
-
+import cors from 'cors';
 dotenv.config({ path: '../.env' });
 dotenv.config();
 
 const express = pkg;
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Use the user routes
 app.use('/api/users', userRoutes);

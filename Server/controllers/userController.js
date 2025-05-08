@@ -23,9 +23,11 @@ console.log(req.body, "body");
     try {
         let encryptedPassword = await hashPassword(password);
         const result = await User.create({ username, email, phone, encryptedPassword});
+        console.log(result , "reault");
         res.status(201).json({
             message: 'User registered successfully',
-            userId: result.insertId, // Use `insertId` from the result
+            username: result.username, // Use `id` from the result
+            id: result.insertId
         });
     } catch (err) {
         console.error('Error creating user:', err);
@@ -48,24 +50,79 @@ console.log(req.body, "body");
 //     }
 // };
 
-export const getUserByUsername = async (req, res) => {
-    const username = req.query.username;
-    const password = req.query.password;
+// const getUserByUsernameAndPassword= async (username, password) => {
+//     try {
+//         const result = await User.getByUsername(username);
+//         if (result && await comparePasswords(password, result.password)) {
+//             return true;
+//         } else {
+//             return false;
+//         }
+//     } catch (err) {
+//         console.error('Error logging in user:', err.message);
+//         return false;
+//     }
+// };
+export const getUserByUsernameAndPassword = async (req, res) => {
+     const username = req.query.username;
+     const password = req.query.password;
+
     try {
         const result = await User.getByUsername(username);
-        if (result && await comparePasswords(password, result.password)) {
-            res.status(201).json({
+        if (result.length && await comparePasswords(password, result.password)) {
+            res.status(200).json({
                 message: 'User login successfully',
-                userId: result.id, // Use `id` from the result
+                username: result.username, 
+                id: result.insertId // Use `id` from the result
             });
         } else {
-            res.status(401).json({ error: 'Invalid username or password' });
-        }
+            return result;
+         }
     } catch (err) {
         console.error('Error logging in user:', err.message);
         res.status(500).json({ error: 'Failed to login user' });
     }
 };
+
+const getUserByName = async (req, res) => {
+    const username = req.query.username;
+    try {
+        const result = await User.getDataByUsername(username);
+        console.log(result);
+        if (!result.length) {
+            return res.status(200).json([]); // return an empty array
+        }
+        res.status(200).json(result);
+    } catch (err) {
+        console.error('Error logging in user:', err.message);
+        res.status(500).json({ error: 'Failed to login user' });
+    }
+}
+export const getUserByUsername = async (req, res) => {
+    // const username = req.query.username;
+    // const password = req.query.password;
+    if(req.query.password){ 
+        return getUserByUsernameAndPassword(req, res);
+    }
+    else{
+    return getUserByName(req, res);
+    }
+    // try {
+    //     const result = await User.getByUsername(username);
+    //     if (result && await comparePasswords(password, result.password)) {
+    //         res.status(201).json({
+    //             message: 'User login successfully',
+    //             userId: result.id, // Use `id` from the result
+    //         });
+    //     } else {
+    //         res.status(401).json({ error: 'Invalid username or password' });
+    //     }
+    // } catch (err) {
+    //     console.error('Error logging in user:', err.message);
+    //     res.status(500).json({ error: 'Failed to login user' });
+    // }
+};
+
 
 // export const getUsers = (req, res) => {
 //     User.getAll((err, results) => {

@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+/* Container for all posts */
+.postsContainer {
+    padding: 30px;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+    margin: 20px auto;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+/* Individual post styling */
+.postItem {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    aspect-ratio: 1;
+    max-width: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.postItem:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    background-color: #ecf0f1;
+}
+
+/* Post title and content */
+.postTitle {
+    margin: 10px 0;
+    color: #34495e;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.postId {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.postActions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.button {
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin: 5px;
+    background-color: #1abc9c;
+    color: white;
+}
+
+.button:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+}
+
+.openButton {
+    composes: button;
+    background-color: #1abc9c;
+}
+
+.openButton:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+}
+
+.addButton {
+    composes: button;
+    background-color: #1abc9c;
+}
+
+.addButton:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+}
+
+.homeLink {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1abc9c;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 20px;
+    transition: all 0.3s ease;
+}
+
+.homeLink:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+}
+
+.homeLink svg {
+    font-size: 1.5em;
+}
+
+.searchContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.searchInput {
+    padding: 8px 12px;
+    border: 2px solid #1abc9c;
+    border-radius: 8px;
+    font-size: 1em;
+    margin: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: #16a085;
+    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.addPostForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.addPostInput {
+    padding: 12px;
+    border: 2px solid #1abc9c;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.addPostInput:focus {
+    outline: none;
+    border-color: #16a085;
+    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+}
