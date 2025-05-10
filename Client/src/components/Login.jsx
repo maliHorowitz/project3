@@ -6,43 +6,49 @@ import styles from '../Css/Login.module.css';
 
 const Login = () => {
     const [showSignUpLink, setShowSignUpLink] = useState(false);
-    const [userDetails, setUserDetails] = useState({ username: "", website: "" });
+    const [userDetails, setUserDetails] = useState({ username: "", password: "" });
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     const currentUser = useUser();
     let ApiRequest = new Fetch();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const { username, website } = userDetails;
+        const { username, password } = userDetails;
 
         try {
-            let response = await checkIfUserInDB(username, website);
+            let response = await checkIfUserInDB(username, password);
+            console.log(response);
             if (response.length) {
                 const user = response[0];
+                console.log(user);
                 currentUser.current = { name: user.username, id: user.id };
                 localStorage.setItem('currentUser', JSON.stringify(currentUser.current));
                 navigate("/home");
             } else {
+                console.log("User not found");
                 setShowSignUpLink(true);
             }
         } catch (error) {
-            navigate('/404', { state: { error: 'Failed to login' } });
+            setError('Failed to login');
+            //navigate('/404', { state: { error: 'Failed to login' } });
         }
     };
 
-    const checkIfUserInDB = async (username, website) => {
-        let myUrl = `users?username=${username}&website=${website}`;
+    const checkIfUserInDB = async (username, password) => {
+        console.log(username, password);
+        let myUrl = `users?username=${username}&password=${password}`;
         let response = await ApiRequest.get(myUrl);
         return response;
     };
 
     return (
         <div className={styles.container}>
-            {showSignUpLink && (
+            {/* {showSignUpLink && (
                 <div>
                     <p>Go to <Link to="/register">Sign Up</Link></p>
                 </div>
-            )}
+            )} */}
             <form className={styles.loginForm} onSubmit={handleSubmit}>
                 <h2 className={styles.title}>Welcome to <span>Social</span></h2>
                 <div className={styles.inputGroup}>
@@ -62,8 +68,8 @@ const Login = () => {
                     <input
                         type="password"
                         name="password"
-                        value={userDetails.website}
-                        onChange={(e) => setUserDetails({ ...userDetails, website: e.target.value })}
+                        value={userDetails.password}
+                        onChange={(e) => setUserDetails({ ...userDetails, password: e.target.value })}
                         className={styles.input}
                         placeholder="Enter your password"
                         required
@@ -78,6 +84,8 @@ const Login = () => {
                 <div className={styles.formFooter}>
                     Don't have an account? <Link to="/register">Sign up here</Link>
                 </div>
+                {error && <p className={styles.error}>{error}</p>}
+                {showSignUpLink && <p className={styles.error}>User not found. Please<Link to="/register">Sign Up</Link></p>}
             </form>
         </div>
     );

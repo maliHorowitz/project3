@@ -52,7 +52,7 @@ export const User = {
 
     getByUsername: async (username) => {
         console.log('username', username);
-        const sql = 'SELECT u.username, p.password FROM users u JOIN passwords p ON u.id = p.id WHERE u.username = ?;';
+        const sql = 'SELECT u.username, p.password, u.id FROM users u JOIN passwords p ON u.id = p.id WHERE u.username = ?;';
         const [rows] = await con.promise().execute(sql, [username]);
         return rows;
     },

@@ -34,15 +34,19 @@ export const getTodoById = async (req, res) => {
 // Add a new todo
 export const createTodo = async (req, res) => {
     try {
-        const {  title, completed,userId } = req.body;
+        console.log(req.body, "todoDataContoroller");
+        const { title, completed: completed, userId } = req.body;
         // const userId = req.user.id; // Assuming `req.user` contains the active user's info
-
+ 
         if (!title) {
             return res.status(400).json({ error: 'Title is required' });
         }
-
         const result = await Todo.create({ title, completed: completed || false, userId });
-        res.status(201).json({ message: 'Todo created successfully', todoId: result.insertId });
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Todo not found' });
+        }
+        req.body.id = result.insertId;
+        res.status(201).json(req.body);
     } catch (err) {
         console.error('Error creating todo:', err.message);
         res.status(500).json({ error: 'Failed to create todo' });
@@ -60,7 +64,7 @@ export const updateTodo = async (req, res) => {
             return res.status(404).json({ error: 'Todo not found' });
         }
 
-        res.status(200).json({ message: 'Todo updated successfully' });
+        res.status(200).json(req.body);
     } catch (err) {
         console.error('Error updating todo:', err.message);
         res.status(500).json({ error: 'Failed to update todo' });

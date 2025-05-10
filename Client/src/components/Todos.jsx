@@ -29,7 +29,7 @@ const Todos = () => {
             navigate('/404', { replace: true });
         }
     }, [username, currentUser]);
-    
+
     useEffect(() => {
         const fetchTodos = async () => {
             try {
@@ -37,12 +37,12 @@ const Todos = () => {
                 console.log("im here", currentUser.current.id);
                 let response = await ApiRequest.get(myUrl, {
                     headers: {
-                      'userId': currentUser.current.id
+                        'userId': currentUser.current.id
                     }
-                  });
+                });
                 let objComplete = {};
                 let objSaveButtons = {};
-
+                console.log(response, "responseTodos");
                 response.forEach((todo) => {
                     objSaveButtons[todo.id] = false;
                     if (!todo.completed) objComplete[todo.id] = false;
@@ -68,7 +68,7 @@ const Todos = () => {
     };
 
     const saveDetailsInDB = async (todo) => {
-        let inputVal =editingIndex ===null ? todo.title: editedTitle;
+        let inputVal = editingIndex === null ? todo.title : editedTitle;
         setEditingIndex(null);
         setSaveButton((prevState) => ({
             ...prevState,
@@ -76,14 +76,14 @@ const Todos = () => {
         }));
         let taskId = todo.id;
         let completed = checkboxes[todo.id];
-        let taskDet = {id: taskId,title: inputVal,completed: completed ,userId: currentUser.current.id};
+        let taskDet = { id: taskId, title: inputVal, completed: completed, userId: currentUser.current.id };
         let myUrl = `todos/${todo.id}`
         try {
             let response = await ApiRequest.put(myUrl, taskDet);
             if (response) {
                 setTodos((prevTodos) =>
                     prevTodos.map((todo) =>
-                        todo.id === taskId ? {...response } : todo
+                        todo.id === taskId ? { ...response } : todo
                     )
                 );
             }
@@ -120,16 +120,22 @@ const Todos = () => {
     const sortTodos = (criterion) => {
         switch (criterion) {
             case 'id':
-                setTodos([...todos].sort((a, b) =>a.id.localeCompare(b.id)));  
+                setTodos([...todos].sort((a, b) => {
+                    if (typeof a.id === 'number' && typeof b.id === 'number') {
+                        return a.id - b.id;
+                    } else {
+                        return a.id.localeCompare(b.id);
+                    }
+                }));
                 break;
             case 'alphabetical':
-                setTodos([...todos].sort((a, b) => a.title.localeCompare(b.title)));  
+                setTodos([...todos].sort((a, b) => a.title.localeCompare(b.title)));
                 break;
             case 'completed':
-                setTodos([...todos].sort((a, b) => a.completed - b.completed)); 
+                setTodos([...todos].sort((a, b) => a.completed - b.completed));
                 break;
             case 'random':
-                setTodos([...todos].sort(() => Math.random() - 0.5));  
+                setTodos([...todos].sort(() => Math.random() - 0.5));
                 break;
             default:
                 setTodos(todos);
@@ -179,7 +185,7 @@ const Todos = () => {
                             <button className={styles.deleteButton} onClick={() => { deleteTask(todo.id) }}>
                                 <FontAwesomeIcon icon={faTrash} />
                             </button>
-                            {saveButton[todo.id] && 
+                            {saveButton[todo.id] &&
                                 <button className={styles.saveButton} onClick={() => saveDetailsInDB(todo)}>
                                     <FontAwesomeIcon icon={faSave} />
                                 </button>
@@ -195,14 +201,15 @@ const Todos = () => {
         let taskDet = { userId: currentUser.current.id, title: inputTitle, completed: false };
         let myUrl = `todos/`;
         try {
-            let response = await ApiRequest.post(myUrl, taskDet)
+            let response = await ApiRequest.post(myUrl, taskDet);
+            console.log(response);
             if (response) {
                 setTodos([...todos, response]);
-                setInputTitle(''); 
+                setInputTitle('');
                 setShowAddTask(false);
             }
         } catch (error) {
-            navigate('/404', { state: { error: 'Failed to add new task' } }); 
+            navigate('/404', { state: { error: 'Failed to add new task' } });
         }
     }
 

@@ -3,7 +3,7 @@
 
 // export const createUser = (req, res) => {
 //     const { name, email, phone } = req.body;
-    
+
 //     if (!name || !email || !phone) {
 //         return res.status(400).json({ error: 'All fields are required' });
 //     }
@@ -13,7 +13,7 @@
 //             console.error('Error inserting user:', err);
 //             return res.status(500).json({ error: 'Failed to register user' });
 //         }
-        
+
 //         res.status(201).json({
 //             message: 'User registered successfully',
 //             userId: result.insertId
@@ -47,20 +47,21 @@ async function hashPassword(password) {
 
 async function comparePasswords(plainPassword, hashedPassword) {
     const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+    console.log(isMatch, "isMatch");
     return isMatch;
 }
 
 export const createUser = async (req, res) => {
     const { username, email, phone, password } = req.body;
-console.log(req.body, "body");
+    console.log(req.body, "body");
     if (!username || !email || !phone) {
         return res.status(400).json({ error: 'All fields are required' });
     }
     try {
         let encryptedPassword = await hashPassword(password);
         console.log(encryptedPassword, "encryptedPassword");
-        const result = await User.create({ username, email, phone, encryptedPassword});
-        console.log(result , "reault");
+        const result = await User.create({ username, email, phone, encryptedPassword });
+        console.log(result, "reault");
         res.status(201).json({
             message: 'User registered successfully',
             username: result.username, // Use `id` from the result
@@ -101,20 +102,28 @@ console.log(req.body, "body");
 //     }
 // };
 export const getUserByUsernameAndPassword = async (req, res) => {
-     const username = req.query.username;
-     const password = req.query.password;
-
+    const username = req.query.username;
+    const password = req.query.password;
+    console.log(username, password, "username, password");
     try {
         const result = await User.getByUsername(username);
-        if (result.length && await comparePasswords(password, result.password)) {
-            res.status(200).json({
-                message: 'User login successfully',
-                username: result.username, 
-                id: result.insertId // Use `id` from the result
-            });
-        } else {
-            return result;
-         }
+        console.log(result, "resultLogin");
+        if (result.length) {
+            if (await comparePasswords(password, result[0].password)) {
+                res.status(200).json([{username: result[0].username,
+                    id: result[0].id // Use `id` from the result
+                },
+                {
+                    message: 'User login successfully'}]);
+            }
+            else{
+                res.status(401).json({ error: 'Invalid username or password' });
+            }
+        }
+        else {
+            res.status(404).json({ error: 'user not found' });
+
+        }
     } catch (err) {
         console.error('Error logging in user:', err.message);
         res.status(500).json({ error: 'Failed to login user' });
@@ -138,11 +147,13 @@ const getUserByName = async (req, res) => {
 export const getUserByUsername = async (req, res) => {
     // const username = req.query.username;
     // const password = req.query.password;
-    if(req.query.password){ 
+
+    if (req.query.password) {
+        console.log("password", req.query.password);
         return getUserByUsernameAndPassword(req, res);
     }
-    else{
-    return getUserByName(req, res);
+    else {
+        return getUserByName(req, res);
     }
     // try {
     //     const result = await User.getByUsername(username);

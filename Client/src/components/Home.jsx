@@ -34,7 +34,7 @@ const Home = () => {
             <nav className={styles.nav}>
                 <div className={styles.logoSection}>
                     <FontAwesomeIcon icon={faUsers} className={styles.logo} />
-                    <span className={styles.logoText}>Social Hub</span>
+                    <span className={styles.logoText}>Social Hours</span>
                 </div>
                 <div className={styles.navLinks}>
                     <Link to={`/users/${currentUser.current.name}/posts`} className={styles.navLink}>

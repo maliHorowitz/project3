@@ -6,7 +6,7 @@ export const Todo = {
         console.log(userId);
         const sql = 'SELECT * FROM todos WHERE user_id = ? ORDER BY id';
         const [rows] = await con.promise().execute(sql, [userId]);
-        console.log(rows);
+        console.log(rows,"rodosModel");
         return rows;
     },
 
@@ -19,12 +19,13 @@ export const Todo = {
 
     // Create a new todo
     create: async (todoData) => {
+        console.log(todoData, "todoDataModel");
         const sql = `
             INSERT INTO todos (title, completed, user_id)
             VALUES (?, ?, ?)
         `;
         const [result] = await con.promise().execute(sql, [todoData.title, todoData.completed, todoData.userId]);
-        return result;
+   return result;
     },
 
     // Update an existing todo
