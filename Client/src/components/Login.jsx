@@ -21,8 +21,8 @@ const Login = () => {
             console.log(response);
             if (response.length) {
                 const user = response[0];
-                console.log(user);
-                currentUser.current = { name: user.username, id: user.id };
+                console.log(user, "user");
+                currentUser.current = { name: user.username, id: user.id, email: user.email };
                 localStorage.setItem('currentUser', JSON.stringify(currentUser.current));
                 navigate("/home");
             } else {

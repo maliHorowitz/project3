@@ -1,12 +1,9 @@
-// routes/userRoutes.js
 import express from 'express';
 import { createUser, getUserByUsername } from '../controllers/userController.js';
-// import { registerUser } from 'E:/year 2 computers b7/full stack/project Mali Bracha/project3/Server/controllers/userController.js';
+import { validateSignup, validateLogin } from '../middleware/validation.js';
 const router = express.Router();
 
-router.post('/', createUser);
-//router.get('/', getUsers);
-//router.get('/:id', getUserById);
-router.get('/', getUserByUsername);
+router.post('/',validateSignup, createUser);
+router.get('/',validateLogin, getUserByUsername);
 
 export default router;

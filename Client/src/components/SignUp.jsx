@@ -16,6 +16,7 @@ const SignUp = () => {
     });
 
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
     const currentUser = useUser();
@@ -89,13 +90,15 @@ const SignUp = () => {
             let response = await ApiRequest.post(myUrl, userDet);
             if (response) {
                 console.log(response);
-                const { username, id} = response;
-                currentUser.current = { name: username, id: id};
+                const { username, id } = response;
+                currentUser.current = { name: username, id: id, email: email };
                 localStorage.setItem('currentUser', JSON.stringify(currentUser.current));
                 navigate("/home");
             }
         } catch (error) {
-            navigate('/404', { state: { error: 'Failed to save user details' } });
+            setError('Failed to register');
+
+            //navigate('/404', { state: { error: 'Failed to save user details' } });
         }
 
         setUserDetailsState({
@@ -172,13 +175,15 @@ const SignUp = () => {
                     <div className={styles.formFooter}>
                         Already have an account? <Link to="/login">Login here</Link>
                     </div>
+                    {error && <p className={styles.error}>{error}</p>}
+
                 </form>
             ) : (
                 <form className={styles.signupForm} onSubmit={setDetailsInDB}>
                     <h2 className={styles.title}>Create Your <span>Account</span></h2>
 
                     <div className={styles.grid}>
-                        
+
                         <div className={styles.inputGroup}>
                             <label className={styles.label}>Email:</label>
                             <input
@@ -193,7 +198,7 @@ const SignUp = () => {
                     </div>
 
                     <div className={styles.grid}>
-                   
+
                         <div className={styles.inputGroup}>
                             <label className={styles.label}>Phone:</label>
                             <input
@@ -213,6 +218,7 @@ const SignUp = () => {
                     >
                         Sign Up
                     </button>
+                    {error && <p className={styles.error}>{error}</p>}
                 </form>
             )}
         </div>
