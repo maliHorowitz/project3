@@ -3,11 +3,12 @@ import { Comments } from '../models/comments.js';
 export const getComments = async (req, res) => {
     try {
         const postId = req.query.postId;
-
-        console.log('header', req.headers);
-
-        const Comments = await Comments.getAllComments(postId);
-        res.status(200).json(Comments);
+        console.log(postId, "postId");
+        
+        const comments = await Comments.getAllComments(postId);
+        console.log(comments, "commentsData");
+        res.status(200).json(comments);
+    
     } catch (err) {
         console.error('Error fetching Comments:', err.message);
         res.status(500).json({ error: 'Failed to fetch Comments' });
@@ -40,9 +41,9 @@ export const createComment = async (req, res) => {
 export const updateComments = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, body } = req.body;
+        const { body } = req.body;
 
-        const result = await Comments.update(id, { title, body });
+        const result = await Comments.update(id, { body });
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: 'Comments not found' });
         }
