@@ -6,14 +6,12 @@ class Fetch {
   }
   async get(myUrl, options = {}) {
     try {
-      console.log(myUrl);
       let url = this.baseURL + myUrl;
       return fetch(url, options)
         .then((res) => {
           if (res.status === 200) {
             return res.json();
           } else {
-            console.log("res.status", res);
             throw new Error('Request failed with status ' + res.status);
           }
         })
@@ -22,7 +20,6 @@ class Fetch {
         });
     }
     catch (error) {
-      console.log("error", error);
       throw error
     }
   }

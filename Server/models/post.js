@@ -41,8 +41,8 @@ export const Post = {
 
     // Delete a post
     delete: async (id) => {
-        // const sqlComments='DELETE FROM comments WHERE post_id = ?';
-        // const [resultComments] = await con.promise().execute(sqlComments, [post_id]);
+         const sqlComments='DELETE FROM comments WHERE postId = ?';
+         const [resultComments] = await con.promise().execute(sqlComments, [id]);
 
         const sqlPost = 'DELETE FROM posts WHERE id = ?';
         const [result] = await con.promise().execute(sqlPost, [id]);
