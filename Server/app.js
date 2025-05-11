@@ -54,6 +54,7 @@ import userRoutes from './routes/userRoutes.js';
 import cors from 'cors';
 import todoRoutes from './routes/todoRoutes.js';
 import postRoutes from './routes/postRoutes.js';
+import commentsRoutes from './routes/commentsRoutes.js';
 
 dotenv.config({ path: '../.env' });
 dotenv.config();
@@ -69,6 +70,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/todos', todoRoutes);
 // Use the post routes
 app.use('/api/posts', postRoutes);
+// Use the comment routes
+app.use('/api/comments', commentsRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
