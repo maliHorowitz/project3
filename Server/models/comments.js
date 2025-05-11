@@ -26,10 +26,10 @@ export const Comments = {
     update: async (id, commentsData) => {
         const sql = `
             UPDATE comments
-            SET title = ?, body = ?
+            SET body = ?
             WHERE id = ?
         `;
-        const [result] = await con.promise().execute(sql, [commentsData.title, commentsData.body, id]);
+        const [result] = await con.promise().execute(sql, [commentsData.body, id]);
         return result;
     },
 
