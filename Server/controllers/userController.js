@@ -52,11 +52,11 @@ async function comparePasswords(plainPassword, hashedPassword) {
 }
 
 export const createUser = async (req, res) => {
-    const { username, email, phone, password } = req.body;
-    console.log(req.body, "body");
-    if (!username || !email || !phone) {
-        return res.status(400).json({ error: 'All fields are required' });
-    }
+    // const { username, email, phone, password } = req.body;
+    // console.log(req.body, "body");
+    // if (!username || !email || !phone) {
+    //     return res.status(400).json({ error: 'All fields are required' });
+    // }
     try {
         let encryptedPassword = await hashPassword(password);
         console.log(encryptedPassword, "encryptedPassword");
@@ -144,6 +144,7 @@ const getUserByName = async (req, res) => {
         res.status(500).json({ error: 'Failed to login user' });
     }
 }
+
 export const getUserByUsername = async (req, res) => {
     // const username = req.query.username;
     // const password = req.query.password;
