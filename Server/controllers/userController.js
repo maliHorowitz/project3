@@ -22,6 +22,8 @@ export const createUser = async (req, res) => {
     //     return res.status(400).json({ error: 'All fields are required' });
     // }
     try {
+        const { username, email, phone, password } = req.body;
+
         let encryptedPassword = await hashPassword(password);
         console.log(encryptedPassword, "encryptedPassword");
         const result = await User.create({ username, email, phone, encryptedPassword });

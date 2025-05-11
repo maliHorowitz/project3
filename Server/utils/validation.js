@@ -1,4 +1,5 @@
 export const validateSignup = (req, res, next) => {
+    console.log(req.body, "req.body validation");
     const { username, email, phone, password } = req.body;
 
     // Check if all fields are provided
@@ -45,10 +46,11 @@ export const validateSignup = (req, res, next) => {
 };
 
 export const validateLogin = (req, res, next) => {
-    const { username, password } = req.body;
+    
+    const username = req.query.username;
 
     // Check if username and password are provided
-    if (!username || !password) {
+    if (!username) {
         return res.status(400).json({ error: 'Username and password are required. Please fill out both fields.' });
     }
 
