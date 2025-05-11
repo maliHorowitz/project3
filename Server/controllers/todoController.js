@@ -3,11 +3,7 @@ import { Todo } from '../models/todo.js';
 // Get all todos for the active user
 export const getTodos = async (req, res) => {
     try {
-        console.log('header', req.headers);
-
         const userId = req.headers.userid; // Assuming `req.user` contains the active user's info
-        console.log('userid', userId);
-
         const todos = await Todo.getByUserId(userId);
         res.status(200).json(todos);
     } catch (err) {
@@ -34,7 +30,6 @@ export const getTodoById = async (req, res) => {
 // Add a new todo
 export const createTodo = async (req, res) => {
     try {
-        console.log(req.body, "todoDataContoroller");
         const { title, completed: completed, userId } = req.body;
         // const userId = req.user.id; // Assuming `req.user` contains the active user's info
  

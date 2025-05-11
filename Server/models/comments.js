@@ -1,19 +1,14 @@
 import { con } from '../../DB/connection_DB.js';
 
 export const Comments = {
-    // Get all posts for a specific user
     getAllComments: async (postId) => {
-        //console.log(userId);
         
         const sql = 'SELECT * FROM comments where postId=? ORDER BY id';
         const [rows] = await con.promise().execute(sql, [postId]);
-        console.log(rows,"commentsModel");
         return rows;
     },
 
-    // Create a new comment
     create: async (commentsData) => {
-        console.log(commentsData, "commentsDataModel");
         const sql = `
             INSERT INTO comments ( email, body, postId )
             VALUES (?, ?, ?)

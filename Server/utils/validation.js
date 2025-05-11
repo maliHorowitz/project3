@@ -1,5 +1,4 @@
 export const validateSignup = (req, res, next) => {
-    console.log(req.body, "req.body validation");
     const { username, email, phone, password } = req.body;
 
     // Check if all fields are provided

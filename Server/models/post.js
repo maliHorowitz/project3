@@ -1,12 +1,9 @@
 import { con } from '../../DB/connection_DB.js';
 
 export const Post = {
-    // Get all posts for a specific user
     getAllPosts: async () => {
-        //console.log(userId);
         const sql = 'SELECT * FROM posts ORDER BY id';
         const [rows] = await con.promise().execute(sql, []);
-        console.log(rows,"postsModel");
         return rows;
     },
 
@@ -19,7 +16,6 @@ export const Post = {
 
     // Create a new post
     create: async (postData) => {
-        console.log(postData, "postDataModel");
         const sql = `
             INSERT INTO posts (title, body, userId)
             VALUES (?, ?, ?)

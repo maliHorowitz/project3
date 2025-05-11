@@ -2,11 +2,6 @@ import { Post } from '../models/post.js';
 
 export const getPosts = async (req, res) => {
     try {
-        console.log('header', req.headers);
-
-        //const userId = req.headers.userid; 
-        //console.log('userid', userId);
-
         const posts = await Post.getAllPosts();
         res.status(200).json(posts);
     } catch (err) {

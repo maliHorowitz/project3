@@ -22,37 +22,13 @@ const SignUp = () => {
     const currentUser = useUser();
     let ApiRequest = new Fetch();
 
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const { username, password, verifyPassword } = userDetailsState;
-    //     try {
-    //         let answer = await checkIfUserInDB(username);
-    //         if (!answer.length) {
-    //             // User was not found, proceed to signup
-    //             if (password === verifyPassword) {
-    //                 setIsSubmitted(true);
-    //                 setVerification(true);
-    //             } else {
-    //                 setVerification(false);
-    //             }
-    //         } else {
-    //             // User was found, show login link
-    //             setShowLoginLink(true);
-    //         }
-    //     } catch (error) {
-    //         console.log(error.message);
-    //         navigate('/404', { state: { error: 'Failed to check if user exists' } });
-    //     }
-    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { username, password, verifyPassword } = userDetailsState;
         try {
             let answer = await checkIfUserInDB(username);
-            console.log(answer);
             if (answer.length) {
-                console.log(answer);
                 setShowLoginLink(true);
             } else {
                 if (password === verifyPassword) {
@@ -63,7 +39,6 @@ const SignUp = () => {
                 }
             }
         } catch (error) {
-            console.log(error.message);
             navigate('/404', { state: { error: 'Failed to check if user exists' } });
         }
     };
@@ -89,7 +64,6 @@ const SignUp = () => {
         try {
             let response = await ApiRequest.post(myUrl, userDet);
             if (response) {
-                console.log(response);
                 const { username, id } = response;
                 currentUser.current = { name: username, id: id, email: email };
                 localStorage.setItem('currentUser', JSON.stringify(currentUser.current));
@@ -98,7 +72,6 @@ const SignUp = () => {
         } catch (error) {
             setError('Failed to register');
 
-            //navigate('/404', { state: { error: 'Failed to save user details' } });
         }
 
         setUserDetailsState({

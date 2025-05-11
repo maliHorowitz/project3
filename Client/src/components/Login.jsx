@@ -18,15 +18,12 @@ const Login = () => {
 
         try {
             let response = await checkIfUserInDB(username, password);
-            console.log(response);
             if (response.length) {
                 const user = response[0];
-                console.log(user, "user");
                 currentUser.current = { name: user.username, id: user.id, email: user.email };
                 localStorage.setItem('currentUser', JSON.stringify(currentUser.current));
                 navigate("/home");
             } else {
-                console.log("User not found");
                 setShowSignUpLink(true);
             }
         } catch (error) {
@@ -36,7 +33,6 @@ const Login = () => {
     };
 
     const checkIfUserInDB = async (username, password) => {
-        console.log(username, password);
         let myUrl = `users?username=${username}&password=${password}`;
         let response = await ApiRequest.get(myUrl);
         return response;

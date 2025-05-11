@@ -45,10 +45,10 @@ const Home = () => {
                         <FontAwesomeIcon icon={faTasks} />
                         Todos
                     </Link>
-                    <Link to={`/users/${currentUser.current.name}/albums`} className={styles.navLink}>
+                    {/* <Link to={`/users/${currentUser.current.name}/albums`} className={styles.navLink}>
                         <FontAwesomeIcon icon={faImages} />
                         Albums
-                    </Link>
+                    </Link> */}
                     <button onClick={() => setShowInfo(true)} className={styles.navLink}>
                         <FontAwesomeIcon icon={faInfoCircle} />
                         Info

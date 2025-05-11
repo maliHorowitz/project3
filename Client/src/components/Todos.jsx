@@ -34,7 +34,6 @@ const Todos = () => {
         const fetchTodos = async () => {
             try {
                 let myUrl = `todos`;
-                console.log("im here", currentUser.current.id);
                 let response = await ApiRequest.get(myUrl, {
                     headers: {
                         'userId': currentUser.current.id
@@ -42,7 +41,6 @@ const Todos = () => {
                 });
                 let objComplete = {};
                 let objSaveButtons = {};
-                console.log(response, "responseTodos");
                 response.forEach((todo) => {
                     objSaveButtons[todo.id] = false;
                     if (!todo.completed) objComplete[todo.id] = false;
@@ -202,7 +200,6 @@ const Todos = () => {
         let myUrl = `todos/`;
         try {
             let response = await ApiRequest.post(myUrl, taskDet);
-            console.log(response);
             if (response) {
                 setTodos([...todos, response]);
                 setInputTitle('');

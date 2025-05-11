@@ -2,11 +2,8 @@ import { Comments } from '../models/comments.js';
 
 export const getComments = async (req, res) => {
     try {
-        const postId = req.query.postId;
-        console.log(postId, "postId");
-        
+        const postId = req.query.postId;        
         const comments = await Comments.getAllComments(postId);
-        console.log(comments, "commentsData");
         res.status(200).json(comments);
     
     } catch (err) {
@@ -18,10 +15,7 @@ export const getComments = async (req, res) => {
 // Add a new post
 export const createComment = async (req, res) => {
     try {
-        console.log(req.body, "commentsDataContoroller");
-        const { email, body, postId } = req.body;
-        // const userId = req.user.id; // Assuming `req.user` contains the active user's info
- 
+        const { email, body, postId } = req.body; 
         if (!body) {
             return res.status(400).json({ error: 'Body is required' });
         }
