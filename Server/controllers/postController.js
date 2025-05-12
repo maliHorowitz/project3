@@ -10,28 +10,10 @@ export const getPosts = async (req, res) => {
     }
 };
 
-// Get a specific post by ID
-export const getPostById = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const post = await Post.getById(id);
-        if (!post) {
-            return res.status(404).json({ error: 'post not found' });
-        }
-        res.status(200).json(post);
-    } catch (err) {
-        console.error('Error fetching post:', err.message);
-        res.status(500).json({ error: 'Failed to fetch post' });
-    }
-};
-
 // Add a new post
 export const createPost = async (req, res) => {
     try {
-        console.log(req.body, "postDataContoroller");
-        const { title, body, userId } = req.body;
-        // const userId = req.user.id; // Assuming `req.user` contains the active user's info
- 
+        const { title, body, userId } = req.body; 
         if (!title) {
             return res.status(400).json({ error: 'Title is required' });
         }

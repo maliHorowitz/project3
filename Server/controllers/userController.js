@@ -24,7 +24,7 @@ export const createUser = async (req, res) => {
             
             res.status(201).json({
                 message: 'User registered successfully',
-                username: username, // Use `id` from the result
+                username: username, 
                 id: result[0].userId,
                 email: email
             });
@@ -46,7 +46,7 @@ export const getUserByUsernameAndPassword = async (req, res) => {
                 res.status(200).json([{
                     username: result[0].username,
                     id: result[0].id,
-                    email: result[0].email, // Use `id` from the result
+                    email: result[0].email, 
                 },
                 {
                     message: 'User login successfully'
@@ -66,12 +66,12 @@ export const getUserByUsernameAndPassword = async (req, res) => {
     }
 };
 
-const getUserByName = async (req, res) => {
+const getUserDetailsByName = async (req, res) => {
     const username = req.query.username;
     try {
         const result = await User.getDataByUsername(username);
         if (!result.length) {
-            return res.status(200).json([]); // return an empty array
+            return res.status(200).json([]); 
         }
         res.status(200).json(result);
     } catch (err) {
@@ -87,6 +87,6 @@ export const getUserByUsername = async (req, res) => {
         return getUserByUsernameAndPassword(req, res);
     }
     else {
-        return getUserByName(req, res);
+        return getUserDetailsByName(req, res);
     }
 };

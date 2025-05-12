@@ -7,13 +7,6 @@ export const Post = {
         return rows;
     },
 
-    // Get a specific post by ID
-    getById: async (id) => {
-        const sql = 'SELECT * FROM posts WHERE id = ?';
-        const [rows] = await con.promise().execute(sql, [id]);
-        return rows[0];
-    },
-
     // Create a new post
     create: async (postData) => {
         const sql = `

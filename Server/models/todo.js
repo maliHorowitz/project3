@@ -8,12 +8,6 @@ export const Todo = {
         return rows;
     },
 
-    // Get a specific todo by ID
-    getById: async (id) => {
-        const sql = 'SELECT * FROM todos WHERE id = ?';
-        const [rows] = await con.promise().execute(sql, [id]);
-        return rows[0];
-    },
 
     // Create a new todo
     create: async (todoData) => {

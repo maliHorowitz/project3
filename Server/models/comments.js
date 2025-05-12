@@ -2,7 +2,6 @@ import { con } from '../../DB/connection_DB.js';
 
 export const Comments = {
     getAllComments: async (postId) => {
-        
         const sql = 'SELECT * FROM comments where postId=? ORDER BY id';
         const [rows] = await con.promise().execute(sql, [postId]);
         return rows;
@@ -30,9 +29,6 @@ export const Comments = {
 
     // Delete a post
     delete: async (id) => {
-        // const sqlComments='DELETE FROM comments WHERE post_id = ?';
-        // const [resultComments] = await con.promise().execute(sqlComments, [post_id]);
-
         const sqlComments = 'DELETE FROM comments WHERE id = ?';
         const [result] = await con.promise().execute(sqlComments, [id]);
         return result;

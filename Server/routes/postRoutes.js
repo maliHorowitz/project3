@@ -1,7 +1,6 @@
 import express from 'express';
 import {
     getPosts,
-    getPostById,
     createPost,
     updatePost,
     deletePost
@@ -11,9 +10,6 @@ const router = express.Router();
 
 // Get all posts
 router.get('/', getPosts);
-
-// Get a specific post by ID
-router.get('/:id', getPostById);
 
 // Add a new post
 router.post('/', createPost);

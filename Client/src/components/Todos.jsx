@@ -204,6 +204,10 @@ const Todos = () => {
                 setTodos([...todos, response]);
                 setInputTitle('');
                 setShowAddTask(false);
+                 setCheckboxes((prevState) => ({
+            ...prevState,
+            [response.id]: false,
+        }));
             }
         } catch (error) {
             navigate('/404', { state: { error: 'Failed to add new task' } });
@@ -268,8 +272,8 @@ const Todos = () => {
                     className={styles.todoSelect}
                 >
                     <option value="">Search by status</option>
-                    <option value="true">Completed</option>
-                    <option value="false">Not Completed</option>
+                    <option value="1">Completed</option>
+                    <option value="0">Not Completed</option>
                 </select>
             </div>
 

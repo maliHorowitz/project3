@@ -1,7 +1,6 @@
 import express from 'express';
 import {
     getTodos,
-    getTodoById,
     createTodo,
     updateTodo,
     deleteTodo
@@ -11,9 +10,6 @@ const router = express.Router();
 
 // Get all todos for the active user
 router.get('/', getTodos);
-
-// Get a specific todo by ID
-router.get('/:id', getTodoById);
 
 // Add a new todo
 router.post('/', createTodo);
